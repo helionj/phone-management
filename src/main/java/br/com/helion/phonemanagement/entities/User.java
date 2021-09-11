@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +39,12 @@ public class User implements Serializable{
 	  joinColumns = @JoinColumn(name = "user_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
+	@OneToMany(mappedBy= "user")
+	private Set<TelephoneLine> lines = new HashSet<>();
+	
+	@OneToMany(mappedBy= "user")
+	private Set<Device> devices = new HashSet<>();
 	
 	
 	public User() {}
@@ -105,6 +112,11 @@ public class User implements Serializable{
 
 	public Set<Role> getRoles() {
 		return roles;
+	}
+
+
+	public Set<TelephoneLine> getLines() {
+		return lines;
 	}
 
 
