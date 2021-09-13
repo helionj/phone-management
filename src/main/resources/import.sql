@@ -11,8 +11,8 @@ INSERT INTO tb_user (name, email, password, department_id) VALUES ('Maria de Oli
 INSERT INTO tb_user (name, email, password, department_id) VALUES ('Carla Sanches', 'carlasanches@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG',2);
 INSERT INTO tb_user (name, email, password, department_id) VALUES ('Pedro Ferreira', 'pedroferreira@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG',3);
 
-INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR');
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
+INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR');
 
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
@@ -47,6 +47,7 @@ INSERT INTO tb_telephone_line (LINE_NUMBER,DEVICE_ID,SIM_CARD_ID,USER_ID) VALUES
 INSERT INTO tb_telephone_line (LINE_NUMBER,DEVICE_ID,SIM_CARD_ID,USER_ID) VALUES('67991997234', 6,6,6);
 INSERT INTO tb_telephone_line (LINE_NUMBER,DEVICE_ID,SIM_CARD_ID,USER_ID) VALUES('67991990449', 7,7,7);
 INSERT INTO tb_telephone_line (LINE_NUMBER,DEVICE_ID,SIM_CARD_ID,USER_ID) VALUES('67991978126', 8,8,8);
+INSERT INTO tb_telephone_line (LINE_NUMBER,DEVICE_ID,SIM_CARD_ID,USER_ID) VALUES('67991978925', null,null,null);
 
 INSERT INTO tb_expenditure (REFERENCE_DATE, LOCAL_MINUTES, LONG_DISTANCE_MINUTES, QUANTITY_DATAMB, VALUE, TELEFONE_LINE_ID) VALUES ('2020-05-01', 0,0,165.15,10.76,1);
 INSERT INTO tb_expenditure (REFERENCE_DATE, LOCAL_MINUTES, LONG_DISTANCE_MINUTES, QUANTITY_DATAMB, VALUE, TELEFONE_LINE_ID) VALUES ('2020-05-01', 0,0,300.45,10.76,2);

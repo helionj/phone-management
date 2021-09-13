@@ -43,6 +43,7 @@ public class User implements Serializable{
 	@OneToMany(mappedBy= "user")
 	private Set<TelephoneLine> lines = new HashSet<>();
 	
+
 	@OneToMany(mappedBy= "user")
 	private Set<Device> devices = new HashSet<>();
 	
@@ -117,6 +118,11 @@ public class User implements Serializable{
 
 	public Set<TelephoneLine> getLines() {
 		return lines;
+	}
+	
+
+	public Set<Device> getDevices() {
+		return devices;
 	}
 
 

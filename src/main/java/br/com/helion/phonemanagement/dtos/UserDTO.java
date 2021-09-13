@@ -1,11 +1,17 @@
 package br.com.helion.phonemanagement.dtos;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import br.com.helion.phonemanagement.entities.Device;
+import br.com.helion.phonemanagement.entities.Role;
+import br.com.helion.phonemanagement.entities.TelephoneLine;
 import br.com.helion.phonemanagement.entities.User;
 
-public class UserDTO {
+public class UserDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String name;
@@ -13,6 +19,12 @@ public class UserDTO {
 	private DepartmentDTO departmentDTO;
 	
 	private Set<RoleDTO>roles = new HashSet<>();
+	
+	private Set<TelephoneLineDTO> lines = new HashSet<>();
+	
+
+	private Set<DeviceDTO> devices = new HashSet<>();
+	
 	
 	
 	public UserDTO() {}
@@ -32,6 +44,12 @@ public class UserDTO {
 		email=entity.getEmail();
 		departmentDTO =new DepartmentDTO(entity.getDepartment());
 		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+	}
+	
+	public UserDTO(User entity, Set<TelephoneLine> lines, Set<Device> devices) {
+		this(entity);
+		lines.forEach(x -> this.lines.add(new TelephoneLineDTO(x)));
+		devices.forEach(x -> this.devices.add(new DeviceDTO(x)));
 	}
 	
 
@@ -73,6 +91,21 @@ public class UserDTO {
 
 	public void setDepartmentDTO(DepartmentDTO departmentDTO) {
 		this.departmentDTO = departmentDTO;
+	}
+
+
+	public Set<RoleDTO> getRoles() {
+		return roles;
+	}
+
+
+	public Set<TelephoneLineDTO> getLines() {
+		return lines;
+	}
+
+
+	public Set<DeviceDTO> getDevices() {
+		return devices;
 	}
 	
 	
