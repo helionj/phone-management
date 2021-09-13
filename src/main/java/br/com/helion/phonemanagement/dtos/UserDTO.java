@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.com.helion.phonemanagement.entities.Device;
-import br.com.helion.phonemanagement.entities.Role;
 import br.com.helion.phonemanagement.entities.TelephoneLine;
 import br.com.helion.phonemanagement.entities.User;
 

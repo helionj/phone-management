@@ -18,43 +18,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.helion.phonemanagement.dtos.DepartmentDTO;
-import br.com.helion.phonemanagement.services.DepartmentService;
+import br.com.helion.phonemanagement.dtos.ProviderDTO;
+import br.com.helion.phonemanagement.services.ProviderService;
 
 @RestController
-@RequestMapping(value = "/departments")
-public class DepartmentController {
+@RequestMapping(value = "/providers")
+public class ProviderController {
 
 	@Autowired
-	private DepartmentService service;
+	private ProviderService service;
 
 	@GetMapping
-	public ResponseEntity<Page<DepartmentDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<ProviderDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage,Direction.valueOf(direction), orderBy);
 		
-		Page<DepartmentDTO> list = service.findAllPaged(pageRequest);
+		Page<ProviderDTO> list = service.findAllPaged(pageRequest);
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<DepartmentDTO> findById(@PathVariable Long id) {
+	public ResponseEntity<ProviderDTO> findById(@PathVariable Long id) {
 
-		DepartmentDTO dto = service.findById(id);
+		ProviderDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 
 	@PostMapping
-	public ResponseEntity<DepartmentDTO> insert(@RequestBody DepartmentDTO dto) {
+	public ResponseEntity<ProviderDTO> insert(@RequestBody ProviderDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<DepartmentDTO> update(@PathVariable Long id, @RequestBody DepartmentDTO dto) {
+	public ResponseEntity<ProviderDTO> update(@PathVariable Long id, @RequestBody ProviderDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}

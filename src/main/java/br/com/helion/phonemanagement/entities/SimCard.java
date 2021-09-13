@@ -31,11 +31,12 @@ public class SimCard implements Serializable{
 	
 	public SimCard() {}
 
-	public SimCard(Long id, String number, Provider provider) {
+	public SimCard(Long id, String number, Provider provider, TelephoneLine telephoneLine) {
 		
 		this.id = id;
 		this.number = number;
 		this.setProvider(provider);
+		this.setTelephoneLine(telephoneLine);
 	}
 
 	public Long getId() {
@@ -60,6 +61,15 @@ public class SimCard implements Serializable{
 
 	public void setProvider(Provider provider) {
 		this.provider = provider;
+	}
+	
+
+	public TelephoneLine getTelephoneLine() {
+		return telephoneLine;
+	}
+
+	public void setTelephoneLine(TelephoneLine telephoneLine) {
+		this.telephoneLine = telephoneLine;
 	}
 
 	@Override
