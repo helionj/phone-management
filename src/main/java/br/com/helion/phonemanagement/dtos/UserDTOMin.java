@@ -1,18 +1,14 @@
 package br.com.helion.phonemanagement.dtos;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import br.com.helion.phonemanagement.entities.Device;
-import br.com.helion.phonemanagement.entities.TelephoneLine;
 import br.com.helion.phonemanagement.entities.User;
 
-public class UserDTO implements Serializable{
+public class UserDTOMin implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -21,24 +17,16 @@ public class UserDTO implements Serializable{
 	@Size(min = 5, max =60, message = "Deve ter entre 5 e 60 caracteres")
 	@NotBlank(message="Campo obrigatório")
 	private String name;
-	
 	@Email(message= "Favor entrar com um e-mail válido")
 	private String email;
 	private DepartmentDTO departmentDTO;
 	
-	private Set<RoleDTO>roles = new HashSet<>();
-	
-	private Set<TelephoneLineDTO> lines = new HashSet<>();
-	
-
-	private Set<DeviceDTO> devices = new HashSet<>();
 	
 	
-	
-	public UserDTO() {}
+	public UserDTOMin() {}
 
 
-	public UserDTO(Long id, String name, String email, DepartmentDTO departmentDTO) {
+	public UserDTOMin(Long id, String name, String email, DepartmentDTO departmentDTO) {
 		
 		this.id = id;
 		this.name = name;
@@ -46,19 +34,14 @@ public class UserDTO implements Serializable{
 		this.departmentDTO = departmentDTO;
 	}
 	
-	public UserDTO(User entity) {
+	public UserDTOMin(User entity) {
 		id=entity.getId();
 		name= entity.getName();
 		email=entity.getEmail();
 		departmentDTO =new DepartmentDTO(entity.getDepartment());
-		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 	
-	public UserDTO(User entity, Set<TelephoneLine> lines, Set<Device> devices) {
-		this(entity);
-		lines.forEach(x -> this.lines.add(new TelephoneLineDTO(x)));
-		devices.forEach(x -> this.devices.add(new DeviceDTO(x)));
-	}
+	
 	
 
 
@@ -101,26 +84,6 @@ public class UserDTO implements Serializable{
 		this.departmentDTO = departmentDTO;
 	}
 
-
-	public Set<RoleDTO> getRoles() {
-		return roles;
-	}
-
-
-	public Set<TelephoneLineDTO> getLines() {
-		return lines;
-	}
-
-
-	public Set<DeviceDTO> getDevices() {
-		return devices;
-	}
-	
-	
-	
-	
-	
-	
 	
 	
 	

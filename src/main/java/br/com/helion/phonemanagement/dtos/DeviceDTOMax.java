@@ -2,12 +2,16 @@ package br.com.helion.phonemanagement.dtos;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 
 import br.com.helion.phonemanagement.entities.Device;
+import br.com.helion.phonemanagement.entities.TelephoneLine;
+import br.com.helion.phonemanagement.entities.User;
 
-public class DeviceDTO implements Serializable {
+public class DeviceDTOMax implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -18,23 +22,33 @@ public class DeviceDTO implements Serializable {
 	@NotBlank(message="Campo obrigatório")
 	private String manufacture;
 	private Instant activationDate;
+	private UserDTOMin user;
+	private Set<TelephoneLineDTO> lines = new HashSet<>();
 	
-	
-	public DeviceDTO() {}
+	public DeviceDTOMax() {}
 
-	public DeviceDTO(Long id, String model, String manufacture, Instant activationDate) {
+	public DeviceDTOMax(Long id, String model, String manufacture, Instant activationDate, User user) {
 		super();
 		this.id = id;
 		this.model = model;
 		this.manufacture = manufacture;
 		this.activationDate = activationDate;
+		this.user=new UserDTOMin(user);
 	}
 	
-	public DeviceDTO(Device entity) {
+	
+	public DeviceDTOMax(Device entity) {
 		id = entity.getId();
 		model = entity.getModel();
 		manufacture = entity.getManufacture();
 		activationDate = entity.getActivationDate();
+		user = new UserDTOMin(entity.getUser());
+	}
+	
+	public DeviceDTOMax(Device entity, Set<TelephoneLine> lines) {
+		this(entity);
+		lines.forEach(line -> this.lines.add(new TelephoneLineDTO(line)));
+		
 	}
 
 	public Long getId() {
@@ -68,5 +82,19 @@ public class DeviceDTO implements Serializable {
 	public void setActivationDate(Instant activationDate) {
 		this.activationDate = activationDate;
 	}
+	
+	public UserDTOMin getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTOMin user) {
+		this.user = user;
+	}
+
+	public Set<TelephoneLineDTO> getLines() {
+		return lines;
+	}
+	
+	
 	
 }

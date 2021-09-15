@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+
 import br.com.helion.phonemanagement.entities.Provider;
 import br.com.helion.phonemanagement.entities.SimCard;
 
@@ -12,6 +14,8 @@ public class ProviderDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotBlank(message="Campo obrigatório")
 	private String name;
 	Set<SimCardDTO>simcards = new HashSet<>();
 	

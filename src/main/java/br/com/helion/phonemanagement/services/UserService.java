@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import br.com.helion.phonemanagement.dtos.DeviceDTO;
 import br.com.helion.phonemanagement.dtos.RoleDTO;
 import br.com.helion.phonemanagement.dtos.TelephoneLineDTO;
 import br.com.helion.phonemanagement.dtos.UserDTO;
+import br.com.helion.phonemanagement.dtos.UserDTOInsert;
 import br.com.helion.phonemanagement.entities.Department;
 import br.com.helion.phonemanagement.entities.Device;
 import br.com.helion.phonemanagement.entities.Role;
@@ -47,10 +49,13 @@ public class UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Transactional(readOnly = true)
-	public Page<UserDTO> findAllPaged(PageRequest pageRequest){
-		Page<User> list  = repository.findAll(pageRequest);
-		return list.map(department -> (new UserDTO(department)));
+	public Page<UserDTO> findAllPaged(Pageable pageable){
+		Page<User> list  = repository.findAll(pageable);
+		return list.map(x -> (new UserDTO(x)));
 	}
 	
 	@Transactional(readOnly = true)
@@ -61,9 +66,10 @@ public class UserService {
 	}
 	
 	@Transactional
-	public UserDTO insert(UserDTO dto) {
+	public UserDTO insert(UserDTOInsert dto) {
 		User entity = new User();
 		copyDtoToEntity(dto, entity);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = repository.save(entity);
 		return new UserDTO(entity);
 	}
@@ -99,6 +105,7 @@ public class UserService {
 	void copyDtoToEntity(UserDTO dto, User entity){
 		entity.setName(dto.getName());
 		entity.setEmail(dto.getEmail());
+		
 		Department department = departmentRepository.getById(dto.getDepartmentDTO().getId());
 		entity.setDepartment(department);
 		

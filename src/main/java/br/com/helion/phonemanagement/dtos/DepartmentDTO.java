@@ -2,12 +2,16 @@ package br.com.helion.phonemanagement.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import br.com.helion.phonemanagement.entities.Department;
 
 public class DepartmentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public Long id;
+	
+	@NotBlank(message="Campo obrigatório")
 	public String name;
 	
 	public DepartmentDTO() {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,8 @@ public class TelephoneLine implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(unique = true)
 	private String lineNumber;
 	
 	@OneToOne
@@ -49,7 +52,7 @@ public class TelephoneLine implements Serializable{
 		this.lineNumber = lineNumber;
 		this.simCard = simCard;
 		this.user = user;
-		this.setDevice(device);
+		this.device=device;
 	}
 
 	public Long getId() {

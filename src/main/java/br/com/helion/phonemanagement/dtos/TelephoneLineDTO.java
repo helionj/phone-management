@@ -2,6 +2,8 @@ package br.com.helion.phonemanagement.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import br.com.helion.phonemanagement.entities.TelephoneLine;
 
 public class TelephoneLineDTO implements Serializable{
@@ -9,6 +11,7 @@ public class TelephoneLineDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank(message="Campo obrigatório")
 	private String lineNumber;
 	
 	public TelephoneLineDTO() {}

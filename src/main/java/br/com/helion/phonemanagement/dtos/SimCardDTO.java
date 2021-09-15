@@ -2,6 +2,8 @@ package br.com.helion.phonemanagement.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import br.com.helion.phonemanagement.entities.SimCard;
 
 public class SimCardDTO implements Serializable{
@@ -9,9 +11,11 @@ public class SimCardDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotBlank(message="Campo obrigatório")
 	private String number;
     private TelephoneLineDTO telephoneLine;
-	//private ProviderDTO provider;
+	
 	
 	public SimCardDTO() {};
 	

@@ -2,6 +2,8 @@ package br.com.helion.phonemanagement.dtos;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import br.com.helion.phonemanagement.entities.Role;
 
 public class RoleDTO implements Serializable {
@@ -9,6 +11,8 @@ public class RoleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	Long id;
+	
+	@NotBlank(message="Campo obrigatório")
 	String authority;
 	
 	public RoleDTO() {}
