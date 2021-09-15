@@ -18,6 +18,7 @@ import br.com.helion.phonemanagement.dtos.RoleDTO;
 import br.com.helion.phonemanagement.dtos.TelephoneLineDTO;
 import br.com.helion.phonemanagement.dtos.UserDTO;
 import br.com.helion.phonemanagement.dtos.UserDTOInsert;
+import br.com.helion.phonemanagement.dtos.UserDTOUpdate;
 import br.com.helion.phonemanagement.entities.Department;
 import br.com.helion.phonemanagement.entities.Device;
 import br.com.helion.phonemanagement.entities.Role;
@@ -75,7 +76,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserDTOUpdate dto) {
 		try {
 			User entity = repository.getById(id);
 			copyDtoToEntity(dto, entity);

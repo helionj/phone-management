@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.helion.phonemanagement.dtos.UserDTO;
 import br.com.helion.phonemanagement.dtos.UserDTOInsert;
+import br.com.helion.phonemanagement.dtos.UserDTOUpdate;
 import br.com.helion.phonemanagement.services.UserService;
 
 @RestController
@@ -50,8 +51,8 @@ public class UserController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO dto) {
-		dto = service.update(id, dto);
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTOUpdate dtoUpdate) {
+		UserDTO dto = (UserDTO)service.update(id, dtoUpdate);
 		return ResponseEntity.ok().body(dto);
 	}
 
