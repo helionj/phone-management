@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
-import br.com.helion.phonemanagement.entities.Device;
 import br.com.helion.phonemanagement.entities.SimCard;
 import br.com.helion.phonemanagement.entities.TelephoneLine;
 import br.com.helion.phonemanagement.entities.User;
@@ -19,16 +18,16 @@ public class TelephoneLineDTOMax implements Serializable{
 	private String lineNumber;
 	private SimCardDTO simCard;
 	private UserDTO user;
-	private DeviceDTO device;
+
 	
 	public TelephoneLineDTOMax() {}
 
-	public TelephoneLineDTOMax(Long id, String lineNumber, SimCard simCard, User user, Device device) {
+	public TelephoneLineDTOMax(Long id, String lineNumber, SimCard simCard, User user) {
 		this.id = id;
 		this.lineNumber = lineNumber;
 		this.simCard = new SimCardDTO(simCard);
 		this.user = new UserDTO(user);
-		this.device = new DeviceDTO(device);
+		
 	};
 	
 	public TelephoneLineDTOMax(TelephoneLine entity) {
@@ -41,9 +40,7 @@ public class TelephoneLineDTOMax implements Serializable{
 		if(entity.getUser()!= null) {
 			user = new UserDTO(entity.getUser());
 		}
-		if(entity.getDevice()!= null) {
-			device =new DeviceDTO(entity.getDevice());
-		}
+		
 	}
 
 	public Long getId() {
@@ -78,13 +75,7 @@ public class TelephoneLineDTOMax implements Serializable{
 		this.user = user;
 	}
 
-	public DeviceDTO getDevice() {
-		return device;
-	}
-
-	public void setDevice(DeviceDTO device) {
-		this.device = device;
-	}
+	
 	
 	
 

@@ -12,9 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.helion.phonemanagement.dtos.TelephoneLineDTOInsert;
 import br.com.helion.phonemanagement.dtos.TelephoneLineDTOMax;
+import br.com.helion.phonemanagement.dtos.TelephoneLineDTOUpdate;
 import br.com.helion.phonemanagement.entities.TelephoneLine;
-import br.com.helion.phonemanagement.repositories.DeviceRepository;
 import br.com.helion.phonemanagement.repositories.SimCardRepository;
 import br.com.helion.phonemanagement.repositories.TelephoneLineRepository;
 import br.com.helion.phonemanagement.repositories.UserRepository;
@@ -27,8 +28,6 @@ public class TelephoneLineService {
 	@Autowired
 	private TelephoneLineRepository repository;
 	
-	@Autowired
-	private DeviceRepository deviceRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -51,7 +50,7 @@ public class TelephoneLineService {
 	}
 	
 	@Transactional
-	public TelephoneLineDTOMax insert(TelephoneLineDTOMax dto) {
+	public TelephoneLineDTOMax insert(TelephoneLineDTOInsert dto) {
 		TelephoneLine entity = new TelephoneLine();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
@@ -59,7 +58,7 @@ public class TelephoneLineService {
 	}
 
 	@Transactional
-	public TelephoneLineDTOMax update(Long id, TelephoneLineDTOMax dto) {
+	public TelephoneLineDTOMax update(Long id, TelephoneLineDTOUpdate dto) {
 		try {
 			TelephoneLine entity = repository.getById(id);
 			copyDtoToEntity(dto, entity);
@@ -91,10 +90,6 @@ public class TelephoneLineService {
 		try {
 			if(dto.getSimCard() != null) {
 				entity.setSimCard(simCardRepository.getById(dto.getSimCard().getId()));
-			}
-			
-			if(dto.getDevice() != null) {
-				entity.setDevice(deviceRepository.getById(dto.getDevice().getId()));
 			}
 			
 			if(dto.getUser() != null) {

@@ -36,7 +36,7 @@ public class DeviceService {
 	public DeviceDTOMax findById(Long id) {
 		Optional<Device> obj = repository.findById(id);
 		Device entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-		return new DeviceDTOMax(entity, entity.getLines());
+		return new DeviceDTOMax(entity);
 	}
 	
 	@Transactional

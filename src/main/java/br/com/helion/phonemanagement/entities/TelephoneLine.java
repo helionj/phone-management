@@ -29,30 +29,30 @@ public class TelephoneLine implements Serializable{
 	@Column(unique = true)
 	private String lineNumber;
 	
+
 	@OneToOne
 	@JoinColumn(name= "sim_card_id")
 	private SimCard simCard;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@ManyToOne
-	@JoinColumn(name="device_id")
-	private Device device;
+	
 	
 	@OneToMany(mappedBy= "telephoneLine")
 	private Set<Expenditure> expenditures = new HashSet<>();
 	
 	public TelephoneLine() {}
 
-	public TelephoneLine(Long id, String lineNumber, SimCard simCard, User user, Device device) {
+	public TelephoneLine(Long id, String lineNumber, SimCard simCard, User user) {
 		
 		this.id = id;
 		this.lineNumber = lineNumber;
 		this.simCard = simCard;
 		this.user = user;
-		this.device=device;
+		
 	}
 
 	public Long getId() {
@@ -87,13 +87,6 @@ public class TelephoneLine implements Serializable{
 		this.user = user;
 	}
 
-	public Device getDevice() {
-		return device;
-	}
-
-	public void setDevice(Device device) {
-		this.device = device;
-	}
 
 	@Override
 	public int hashCode() {

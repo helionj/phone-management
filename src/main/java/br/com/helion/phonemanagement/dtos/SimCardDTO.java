@@ -15,18 +15,23 @@ public class SimCardDTO implements Serializable{
 	@NotBlank(message="Campo obrigatório")
 	private String number;
     private TelephoneLineDTO telephoneLine;
+    private ProviderDTO provider;
 	
 	
+	
+
 	public SimCardDTO() {};
 	
 	public SimCardDTO(SimCard entity) {
 		id = entity.getId();
 		number= entity.getNumber();
+		provider = new ProviderDTO(entity.getProvider());
 		if(entity.getTelephoneLine()!=null) {
 			telephoneLine = new TelephoneLineDTO(entity.getTelephoneLine());
 		}
 		
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -35,7 +40,7 @@ public class SimCardDTO implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+     
 	public String getNumber() {
 		return number;
 	}
@@ -52,8 +57,18 @@ public class SimCardDTO implements Serializable{
 		this.telephoneLine = telephoneLine;
 	}
 
+	public ProviderDTO getProvider() {
+		return provider;
+	}
+
+	public void setProvider(ProviderDTO provider) {
+		this.provider = provider;
+	}
+
 	
 	
+	
+
 	
 	
 }

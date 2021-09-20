@@ -2,6 +2,8 @@ package br.com.helion.phonemanagement.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,41 +18,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.helion.phonemanagement.dtos.ExpenditureDTO;
-import br.com.helion.phonemanagement.services.ExpenditureService;
+import br.com.helion.phonemanagement.dtos.SimCardDTO;
+import br.com.helion.phonemanagement.dtos.SimCardDTOInsert;
+import br.com.helion.phonemanagement.dtos.SimCardDTOUpdate;
+import br.com.helion.phonemanagement.services.SimCardService;
 
 @RestController
-@RequestMapping(value = "/expenditures")
-public class ExpenditureController {
+@RequestMapping(value = "/simcards")
+public class SimCardController {
+
 	@Autowired
-	private ExpenditureService service;
+	private SimCardService service;
 
 	@GetMapping
-	public ResponseEntity<Page<ExpenditureDTO>> findAll(Pageable pageable) {
+	public ResponseEntity<Page<SimCardDTO>> findAll(Pageable pageable) {
 		
 		
-		Page<ExpenditureDTO> list = service.findAllPaged(pageable);
+		Page<SimCardDTO> list = service.findAllPaged(pageable);
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ExpenditureDTO> findById(@PathVariable Long id) {
+	public ResponseEntity<SimCardDTO> findById(@PathVariable Long id) {
 
-		ExpenditureDTO dto = service.findById(id);
+		SimCardDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 
 	@PostMapping
-	public ResponseEntity<ExpenditureDTO> insert(@RequestBody ExpenditureDTO dto) {
-		dto = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(dto.getId()).toUri();
-		return ResponseEntity.created(uri).body(dto);
+	public ResponseEntity<SimCardDTO> insert(@Valid @RequestBody SimCardDTOInsert dto) {
+		SimCardDTO newdto = service.insert(dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(newdto.getId()).toUri();
+		return ResponseEntity.created(uri).body(newdto);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ExpenditureDTO> update(@PathVariable Long id, @RequestBody ExpenditureDTO dto) {
-		dto = service.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<SimCardDTO> update(@PathVariable Long id, @Valid @RequestBody SimCardDTOUpdate dto) {
+		SimCardDTO newdto = service.update(id, dto);
+		return ResponseEntity.ok().body(newdto);
 	}
 
 	@DeleteMapping(value = "/{id}")
@@ -58,4 +63,5 @@ public class ExpenditureController {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+
 }

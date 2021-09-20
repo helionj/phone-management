@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.helion.phonemanagement.dtos.TelephoneLineDTOInsert;
 import br.com.helion.phonemanagement.dtos.TelephoneLineDTOMax;
+import br.com.helion.phonemanagement.dtos.TelephoneLineDTOUpdate;
 import br.com.helion.phonemanagement.services.TelephoneLineService;
 
 @RestController
@@ -48,16 +50,16 @@ public class TelephoneLineController {
 	}
 
 	@PostMapping
-	public ResponseEntity<TelephoneLineDTOMax> insert(@Valid @RequestBody TelephoneLineDTOMax dto) {
-		dto = service.insert(dto);
+	public ResponseEntity<TelephoneLineDTOMax> insert(@Valid @RequestBody TelephoneLineDTOInsert dto) {
+		TelephoneLineDTOMax newdto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(dto.getId()).toUri();
-		return ResponseEntity.created(uri).body(dto);
+		return ResponseEntity.created(uri).body(newdto);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<TelephoneLineDTOMax> update(@PathVariable Long id, @Valid @RequestBody TelephoneLineDTOMax dto) {
-		dto = service.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<TelephoneLineDTOMax> update(@PathVariable Long id, @Valid @RequestBody TelephoneLineDTOUpdate dto) {
+		TelephoneLineDTOMax newdto = service.update(id, dto);
+		return ResponseEntity.ok().body(newdto);
 	}
 
 	@DeleteMapping(value = "/{id}")
