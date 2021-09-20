@@ -12,7 +12,7 @@ INSERT INTO tb_user (name, email, password, department_id) VALUES ('Carla Sanche
 INSERT INTO tb_user (name, email, password, department_id) VALUES ('Pedro Ferreira', 'pedroferreira@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG',3);
 
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
-INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR');
+INSERT INTO tb_role (authority) VALUES ('ROLE_MEMBER');
 
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
