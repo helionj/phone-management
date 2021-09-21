@@ -28,7 +28,7 @@ public class Expenditure {
 	private LocalDate referenceDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "telefone_line_id")
+	@JoinColumn(name = "telephone_line_id")
 	private TelephoneLine telephoneLine;
 	
 	public Expenditure() {}
